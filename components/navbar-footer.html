@@ -1,0 +1,146 @@
+<!-- 
+    Reusable Components Library
+    This file contains shared components used across the project
+    Include this file in pages where needed or extract specific sections
+-->
+
+<!-- Full Screen Search Modal -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content" style="background: rgba(9, 30, 62, .7);">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="searchLabel">Search</h5>
+                <button type="button" class="btn bg-white btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex align-items-center justify-content-center">
+                <div class="input-group" style="max-width: 600px;">
+                    <input type="text" class="form-control bg-transparent border-primary p-3" placeholder="Type search keyword" aria-label="Search">
+                    <button class="btn btn-primary px-4" aria-label="Submit search"><i class="bi bi-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmLabel">Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="confirmMessage">
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmBtn">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alert Modal -->
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="alertLabel">Alert</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="alertMessage">
+                Something happened!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Spinner Modal -->
+<div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="spinner-border text-primary mb-3" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p id="loadingLabel">Loading... Please wait.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Service Card Component -->
+<template id="serviceCardTemplate">
+    <div class="col-lg-4 wow slideInUp">
+        <div class="service-item bg-light rounded p-5">
+            <div class="d-inline-flex align-items-center justify-content-center bg-primary rounded-circle mb-4" style="width: 60px; height: 60px;">
+                <i class="fa fa-3x text-white" data-icon=""></i>
+            </div>
+            <h4 class="mb-3" data-name="">Service Name</h4>
+            <p class="mb-4" data-description="">Service description goes here.</p>
+            <a class="btn btn-primary py-2 px-4" href="" data-link="">Learn More</a>
+        </div>
+    </div>
+</template>
+
+<!-- Team Member Card Component -->
+<template id="teamCardTemplate">
+    <div class="col-lg-4 wow slideInUp">
+        <div class="team-item bg-light rounded overflow-hidden">
+            <div class="team-img position-relative overflow-hidden">
+                <img class="img-fluid w-100" data-image="" alt="team member" />
+                <div class="team-social">
+                    <a class="btn btn-lg btn-primary btn-lg-square rounded" href="#" aria-label="Twitter"><i class="fab fa-twitter fw-normal"></i></a>
+                    <a class="btn btn-lg btn-primary btn-lg-square rounded" href="#" aria-label="Facebook"><i class="fab fa-facebook-f fw-normal"></i></a>
+                    <a class="btn btn-lg btn-primary btn-lg-square rounded" href="#" aria-label="Instagram"><i class="fab fa-instagram fw-normal"></i></a>
+                    <a class="btn btn-lg btn-primary btn-lg-square rounded" href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in fw-normal"></i></a>
+                </div>
+            </div>
+            <div class="text-center py-4">
+                <h4 class="text-primary" data-name="">Team Member</h4>
+                <p class="text-uppercase m-0" data-position="">Position</p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!-- Testimonial Card Component -->
+<template id="testimonialTemplate">
+    <div class="wow slideInUp">
+        <div class="bg-light p-4 rounded">
+            <div class="d-flex align-items-center mb-3">
+                <img class="rounded-circle flex-shrink-0" data-image="" style="width: 45px; height: 45px;" alt="testimonial" />
+                <div class="ms-3">
+                    <h5 class="mb-1" data-name="">Client Name</h5>
+                    <small data-role="">Position</small>
+                </div>
+            </div>
+            <p class="mb-3" data-comment="">Testimonial comment goes here...</p>
+            <div class="d-flex" data-rating="">
+                <i class="fas fa-star text-primary"></i>
+                <i class="fas fa-star text-primary"></i>
+                <i class="fas fa-star text-primary"></i>
+                <i class="fas fa-star text-primary"></i>
+                <i class="fas fa-star text-primary"></i>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!-- Pricing Plan Card Component -->
+<template id="pricingTemplate">
+    <div class="col-lg-4 wow slideInUp">
+        <div class="bg-light rounded p-5 text-center h-100" data-highlighted="false">
+            <h4 class="mb-4" data-name="">Plan Name</h4>
+            <h1 class="mb-4" data-price="">$0<span class="fs-6 fw-normal" data-currency="">$</span><span class="fs-6 fw-normal" data-duration="">/month</span></h1>
+            <div class="list-group mb-4" data-features="">
+                <div class="list-group-item"><i class="fa fa-check text-primary me-2"></i>Feature</div>
+            </div>
+            <a class="btn btn-primary py-3 px-5 rounded-pill" href="#" data-cta="">Get Started</a>
+        </div>
+    </div>
+</template>

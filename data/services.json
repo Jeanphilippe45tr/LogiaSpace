@@ -1,0 +1,49 @@
+{
+  "services": [
+    {
+      "id": 1,
+      "icon": "fa-shield-alt",
+      "name": "Cyber Security",
+      "description": "We protect your business from digital threats by implementing robust cybersecurity measures, ensuring your data and systems remain safe.",
+      "delayTime": 0.3
+    },
+    {
+      "id": 2,
+      "icon": "fa-search",
+      "name": "SEO Optimization",
+      "shortDescription": "Improve your online visibility",
+      "description": "Improve your website's visibility and ranking on search engines with our expert SEO strategies tailored for your business.",
+      "delayTime": 0.6
+    },
+    {
+      "id": 3,
+      "icon": "fa-globe",
+      "name": "Web Development",
+      "description": "We design and develop responsive, user-friendly websites that showcase your brand and provide an exceptional digital experience.",
+      "delayTime": 0.9
+    },
+    {
+      "id": 4,
+      "icon": "fa-mobile-alt",
+      "name": "Mobile App Development",
+      "shortDescription": "Build amazing mobile apps",
+      "description": "Our team builds intuitive mobile applications for Android and iOS that engage users and drive business growth.",
+      "delayTime":0.3
+    },
+    {
+      "id": 5,
+      "icon": "fa-chart-bar",
+      "name": "Data Analytics",
+      "description": "Transform raw data into actionable insights with our analytics solutions, helping your business make informed, strategic decisions.",
+      "delayTime": 0.6
+    },
+    {
+      "id": 6,
+      "icon": "fa-paint-brush",
+      "name": "UI/UX Design",
+      "shortDescription": "Design delightful experiences",
+      "description": "Create beautiful and intuitive user interfaces that engage and delight your users.",
+      "delayTime": 0.9
+    }
+  ]
+}

@@ -48,31 +48,45 @@ function initializeEmailJS() {
 function handleFormSubmit(event, successMessage) {
     event.preventDefault();
     const form = event.target;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+
+    // Show loading state
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+    }
 
     emailjs.sendForm(EmailConfig.serviceId, EmailConfig.templateId, form)
         .then(() => {
-            showSuccessAlert(successMessage);
+            if (typeof showSuccessModal === 'function') {
+                showSuccessModal('Success', successMessage);
+            } else {
+                alert(successMessage);
+            }
             form.reset();
         })
-        .catch(handleError);
+        .catch(handleError)
+        .finally(() => {
+            // Restore button state
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        });
 }
 
 /**
- * Show success alert
- * @param {string} message - The success message to display
- */
-function showSuccessAlert(message) {
-    alert(message);
-}
-
-/**
- * Handle errors
- * Centralized error handling
- * @param {Object} error - The error object from EmailJS
+ * Show error modal or alert
+ * @param {object} error - The error object from EmailJS
  */
 function handleError(error) {
     const errorMessage = error.text || 'Something went wrong. Please try again.';
-    alert(`${AlertMessages.ERROR}${errorMessage}`);
+    if (typeof showErrorModal === 'function') {
+        showErrorModal('Error', errorMessage);
+    } else {
+        alert(`${AlertMessages.ERROR}${errorMessage}`);
+    }
     console.error('EmailJS Error:', error);
 }
 
@@ -124,7 +138,11 @@ function handleNewsletterSubmit(event) {
         message: 'Newsletter subscription request'
     })
     .then(() => {
-        showSuccessAlert(AlertMessages.NEWSLETTER_SUCCESS);
+        if (typeof showSuccessModal === 'function') {
+            showSuccessModal('Success', AlertMessages.NEWSLETTER_SUCCESS);
+        } else {
+            alert(AlertMessages.NEWSLETTER_SUCCESS);
+        }
         form.reset();
     })
     .catch(handleError);

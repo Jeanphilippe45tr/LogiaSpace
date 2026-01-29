@@ -1,75 +1,148 @@
-// // Initialize EmailJS with your public key
-// (function() {
-//     emailjs.init("2fXu2otH1u0yawt3l");
-// })();
+/**
+ * EmailJS Configuration
+ * Centralized configuration for EmailJS service
+ */
+const EmailConfig = {
+    serviceId: 'service_pqkrjdr',
+    templateId: 'template_4b2gd6j',
+    publicKey: '2fXu2otH1u0yawt3l'
+};
 
-// // Quote Form Handler (for both index.html and quote.html)
-// document.getElementById('quoteForm').addEventListener('submit', function(event) {
-//     event.preventDefault(); // Prevent default form submission
+/**
+ * Form Selector Constants
+ * Centralized form element selectors
+ */
+const FormSelectors = {
+    QUOTE: '#quoteForm',
+    CONTACT: '#contactForm',
+    NEWSLETTER: '#newsletterForm'
+};
 
-//     // Send form using EmailJS
-//     emailjs.sendForm('service_pqkrjdr', 'template_7iy2rlb', this)
-//         .then(function() {
-//             alert('Quote request sent successfully! We will contact you soon.');
-//             document.getElementById('quoteForm').reset(); // Reset form after sending
-//         }, function(error) {
-//             alert('Oops! Something went wrong. Please try again.');
-//             console.error('EmailJS Error:', error);
-//         });
-// });
+/**
+ * Alert Messages
+ * Centralized user feedback messages
+ */
+const AlertMessages = {
+    SUCCESS: 'Message sent successfully!',
+    ERROR: 'Error: ',
+    QUOTE_SUCCESS: 'Quote request sent successfully! We will contact you soon.',
+    NEWSLETTER_SUCCESS: 'Thank you for subscribing to our newsletter!'
+};
 
-// // Contact Form Handler (for contact.html)
-// document.getElementById('contact-form').addEventListener('submit', function(event) {
-//     event.preventDefault(); // Prevent default form submission
+/**
+ * Initialize EmailJS
+ * Sets up EmailJS with the configured public key
+ */
+function initializeEmailJS() {
+    if (typeof emailjs !== 'undefined') {
+        emailjs.init(EmailConfig.publicKey);
+    }
+}
 
-//     // Send form using EmailJS
-//     emailjs.sendForm('service_pqkrjdr', 'template_7iy2rlb', this)
-//         .then(function() {
-//             alert('Message sent successfully! We will contact you soon.');
-//             document.getElementById('contact-form').reset(); // Reset form after sending
-//         }, function(error) {
-//             alert('Oops! Something went wrong. Please try again.');
-//             console.error('EmailJS Error:', error);
-//         });
-// });
+/**
+ * Handle form submission
+ * Centralized handler for all form submissions
+ * @param {Event} event - The form submit event
+ * @param {string} successMessage - Custom success message
+ */
+function handleFormSubmit(event, successMessage) {
+    event.preventDefault();
+    const form = event.target;
 
-// // Newsletter Form Handler (for all pages with footer newsletter)
-// document.getElementById('newsletterForm').addEventListener('submit', function(event) {
-//     event.preventDefault(); // Prevent default form submission
+    emailjs.sendForm(EmailConfig.serviceId, EmailConfig.templateId, form)
+        .then(() => {
+            showSuccessAlert(successMessage);
+            form.reset();
+        })
+        .catch(handleError);
+}
 
-//     // Get the email value
-//     var emailInput = this.querySelector('input[type="text"], input[type="email"]');
-//     var email = emailInput.value;
+/**
+ * Show success alert
+ * @param {string} message - The success message to display
+ */
+function showSuccessAlert(message) {
+    alert(message);
+}
 
-//     // Send using EmailJS with same template as other forms
-//     emailjs.send('service_pqkrjdr', 'template_7iy2rlb', {
-//         from_email: email,
-//         message: 'Newsletter subscription request'
-//     })
-//     .then(function() {
-//         alert('Thank you for subscribing to our newsletter!');
-//         document.getElementById('newsletterForm').reset(); // Reset form after sending
-//     }, function(error) {
-//         alert('Oops! Something went wrong. Please try again.');
-//         console.error('EmailJS Error:', error);
-//     });
-// });
+/**
+ * Handle errors
+ * Centralized error handling
+ * @param {Object} error - The error object from EmailJS
+ */
+function handleError(error) {
+    const errorMessage = error.text || 'Something went wrong. Please try again.';
+    alert(`${AlertMessages.ERROR}${errorMessage}`);
+    console.error('EmailJS Error:', error);
+}
 
+/**
+ * Initialize all form handlers
+ * Sets up event listeners for all forms on the page
+ */
+function initializeFormHandlers() {
+    // Quote Form
+    const quoteForm = document.querySelector(FormSelectors.QUOTE);
+    if (quoteForm) {
+        quoteForm.addEventListener('submit', (e) => 
+            handleFormSubmit(e, AlertMessages.QUOTE_SUCCESS)
+        );
+    }
 
-document.getElementById("contactForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+    // Contact Form
+    const contactForm = document.querySelector(FormSelectors.CONTACT);
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => 
+            handleFormSubmit(e, AlertMessages.SUCCESS)
+        );
+    }
 
-    emailjs.sendForm(
-        "service_pqkrjdr",       
-        "template_4b2gd6j",      
-        this
-    )
-    .then(() => {
-        alert("Message sent successfully!");
-        this.reset();
+    // Newsletter Form
+    const newsletterForm = document.querySelector(FormSelectors.NEWSLETTER);
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', handleNewsletterSubmit);
+    }
+}
+
+/**
+ * Handle newsletter form submission
+ * Specialized handler for newsletter subscriptions
+ * @param {Event} event - The form submit event
+ */
+function handleNewsletterSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const emailInput = form.querySelector('input[name="from_email"]');
+    
+    if (!emailInput || !emailInput.value) {
+        alert('Please enter your email address.');
+        return;
+    }
+
+    emailjs.send(EmailConfig.serviceId, EmailConfig.templateId, {
+        from_email: emailInput.value,
+        message: 'Newsletter subscription request'
     })
-    .catch(error => {
-        alert("Error: " + error.text);
-    });
-});
+    .then(() => {
+        showSuccessAlert(AlertMessages.NEWSLETTER_SUCCESS);
+        form.reset();
+    })
+    .catch(handleError);
+}
+
+/**
+ * Initialize application
+ * Main entry point - runs when DOM is ready
+ */
+function initialize() {
+    initializeEmailJS();
+    initializeFormHandlers();
+}
+
+// Run initialization when DOM is loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initialize);
+} else {
+    initialize();
+}
 

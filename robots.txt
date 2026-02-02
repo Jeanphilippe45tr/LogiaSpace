@@ -1,0 +1,34 @@
+# Robots.txt for LogiaSpace Website
+# Last updated: 2026
+
+User-agent: *
+Allow: /
+
+# Disallow admin/private folders (if any)
+Disallow: /api/
+Disallow: /lib/
+Disallow: /modals/
+Disallow: /utils/
+
+# Sitemap location
+Sitemap: https://logiaspace.com/sitemap.xml
+
+# Crawl-delay (optional, uncomment if needed)
+# Crawl-delay: 10
+
+# Host directive
+Host: https://logiaspace.com
+
+# Additional directives for specific bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Yahoo! Slurp
+Allow: /
+
+User-agent: Yandex
+Allow: /
+

@@ -1,0 +1,142 @@
+/**
+ * Modal Styles
+ * Styling for custom modals and dialogs
+ */
+
+/* Modal Enhancements */
+.modal-content {
+    border: none;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    background-color: #091E3E;
+    color: white;
+    border: none;
+}
+
+.modal-header .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+.modal-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.modal-body {
+    padding: 2rem;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.modal-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Modal Size Variations */
+.modal-lg {
+    --bs-modal-width: 1000px;
+}
+
+.modal-sm {
+    --bs-modal-width: 400px;
+}
+
+/* Loading Spinner */
+.spinner-border {
+    width: 50px;
+    height: 50px;
+    border-width: 4px;
+}
+
+.modal .spinner-border.text-primary {
+    --bs-spinner-color: #091E3E;
+}
+
+/* Alert Icon Styles */
+.modal-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.modal-icon.success {
+    color: #34AD54;
+}
+
+.modal-icon.error {
+    color: #DC3545;
+}
+
+.modal-icon.warning {
+    color: #FFC107;
+}
+
+.modal-icon.info {
+    color: #091E3E;
+}
+
+/* Confirmation Modal */
+#confirmModal .modal-body {
+    font-size: 1.1rem;
+    color: #333;
+}
+
+#confirmBtn:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* Search Modal */
+#searchModal .input-group {
+    width: 100%;
+}
+
+#searchModal .form-control {
+    border-radius: 4px 0 0 4px;
+    padding: 1rem;
+    font-size: 1.1rem;
+}
+
+#searchModal .btn {
+    border-radius: 0 4px 4px 0;
+}
+
+/* Animation for modals */
+.modal.fade .modal-dialog {
+    transform: scale(0.9);
+    opacity: 0;
+    transition: all 0.3s ease-out;
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-body {
+        padding: 1.5rem;
+    }
+    
+    .modal-dialog {
+        margin: 1rem;
+    }
+    
+    .modal-lg {
+        --bs-modal-width: 95vw;
+    }
+}
+
+/* Accessibility */
+.modal:focus-within {
+    outline: 2px solid #091E3E;
+    outline-offset: 2px;
+}
+
+.modal button:focus {
+    outline: 2px solid #091E3E;
+    outline-offset: 2px;
+}

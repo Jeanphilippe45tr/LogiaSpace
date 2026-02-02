@@ -1,0 +1,32 @@
+{
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "Eric M.",
+      "role": "Business Owner",
+      "image": "img/testimonial-1.jpg",
+      "comment": "Logia Space transformed our ideas into a modern, high-performing website. Their professionalism, attention to detail, and technical expertise exceeded our expectations."
+    },
+    {
+      "id": 2,
+      "name": "Sandra K.",
+      "role": "Startup Founder",
+      "image": "img/testimonial-2.jpg",
+      "comment": "The team delivered our platform on time with excellent quality. Communication was smooth, and every feature was implemented exactly as requested."
+    },
+    {
+      "id": 3,
+      "name": "Jean-Paul N.",
+      "role": "IT Manager",
+      "image": "img/testimonial-3.jpg",
+      "comment": "Logia Space provided reliable digital solutions that improved our internal processes and online presence. We highly recommend their services."
+    },
+    {
+      "id": 4,
+      "name": "Amina T.",
+      "role": "Marketing Consultant",
+      "image": "img/testimonial-4.jpg",
+      "comment": "From design to deployment, everything was handled professionally. Their creative approach and technical skills truly make a difference."
+    }
+  ]
+}

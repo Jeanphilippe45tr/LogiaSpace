@@ -179,7 +179,7 @@ h6,
         width: 100%;
         top: 0;
         left: 0;
-        border-bottom: 1px solid rgba(256, 256, 256, .1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         z-index: 999;
     }
     
@@ -488,5 +488,50 @@ h6,
 @media (min-width: 767.98px) {
     .footer-about {
         margin-bottom: -75px;
+    }
+}
+
+/* Toast Notification Styles */
+.toast-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 16px 24px;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10000;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateX(400px);
+    transition: all 0.3s ease-out;
+    max-width: 400px;
+    word-wrap: break-word;
+}
+
+.toast-notification.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.toast-success {
+    background-color: #34AD54;
+    color: white;
+    border-left: 4px solid #25873d;
+}
+
+.toast-error {
+    background-color: #DC3545;
+    color: white;
+    border-left: 4px solid #a02834;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .toast-notification {
+        bottom: 15px;
+        right: 15px;
+        left: 15px;
+        max-width: none;
     }
 }

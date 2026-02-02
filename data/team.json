@@ -1,0 +1,52 @@
+{
+  "team": [
+    {
+      "id": 1,
+      "name": "Mr KAMISSI K. DANIEL",
+      "position": "CEO & Founder",
+      "image": "img/profile-1.png",
+      "social": {
+        "twitter": "#",
+        "linkedin": "#",
+        "instagram": "#"
+      },
+      "delayTime": 0.3
+    },
+    {
+      "id": 2,
+      "name": "Mr KAMISSI",
+      "position": "Tech Lead",
+      "image": "img/profile-3.jpeg",
+      "delayTime": 0.6,
+      "social": {
+        "twitter": "#",
+        "linkedin": "#",
+        "instagram": "#"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Mr NFONKA MOHAMED",
+      "position": "Backend Developer",
+      "image": "img/profile-4.jpeg",
+      "delayTime": 0.9,
+      "social": {
+        "twitter": "#",
+        "linkedin": "#",
+        "instagram": "#"
+      }
+    },
+    {
+      "id": 4,
+      "name": "NOUWE JEAN PHILLIPE",
+      "position": "Frontend Developer",
+      "image": "img/profile-2.jpeg",
+      "delayTime": 0.3,
+      "social": {
+        "twitter": "#",
+        "linkedin": "#",
+        "instagram": "#"
+      }
+    }
+  ]
+}

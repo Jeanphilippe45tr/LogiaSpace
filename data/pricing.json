@@ -1,0 +1,53 @@
+{
+  "pricing": [
+    {
+      "id": 1,
+      "name": "Basic Plan",
+      "price": 49.00,
+      "currency": "$",
+      "duration": "/ month",
+      "description": "Ideal for Small Businesses",
+      "features": [
+        "Website Design",
+        "Responsive Layout"
+      ],
+      "non_nfeatures": [
+        "Basic SEO Setup",
+        "Advanced Support"
+      ],
+      "delayTime": 0.3
+    },
+    {
+      "id": 2,
+      "name": "Standard Plan",
+      "price": 99.00,
+      "currency": "$",
+      "duration": "/ month",
+      "description": "Perfect for Growing Businesses",
+      "features": [
+        "Website & Web App",
+        "Responsive Layout",
+        "SEO Optimization"
+      ],
+      "non_nfeatures": [
+        "Priority Support"
+      ],
+      "delayTime": 0.6
+    },
+    {
+      "id": 3,
+      "name": "Advanced Plan",
+      "price": 149.00,
+      "currency": "$",
+      "duration": "/ month",
+      "description": "Designed for Large Enterprises",
+      "features": [
+        "Custom Web Solutions",
+        "Responsive Layout",
+        "Full SEO & Analytics",
+        "24/7 Dedicated Support"
+      ],
+      "delayTime": 0.9
+    }
+  ]
+}

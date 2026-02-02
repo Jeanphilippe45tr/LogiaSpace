@@ -1,0 +1,155 @@
+<!-- 
+    Modal Dialogs & Components
+    Centralized modal definitions for the application
+    Include this file in your HTML or reference in JavaScript
+-->
+
+<!-- Full Screen Search Modal -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content" style="background: rgba(9, 30, 62, .7);">
+            <div class="modal-header border-0">
+                <h5 class="modal-title text-white" id="searchLabel">Search Website</h5>
+                <button type="button" class="btn bg-white btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex align-items-center justify-content-center" style="min-height: 400px;">
+                <div class="input-group" style="max-width: 600px;">
+                    <input type="text" class="form-control bg-transparent border-primary p-3" placeholder="Type search keyword" aria-label="Search" style="color: white;">
+                    <button class="btn btn-primary px-4" aria-label="Submit search" type="submit"><i class="bi bi-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirmation Dialog -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="confirmLabel">Confirm Action</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">Are you sure you want to continue?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmBtn">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alert Dialog -->
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="alertLabel">Alert</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="alertMessage">Something important happened.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading/Processing Modal -->
+<div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center p-5">
+                <div class="spinner-border text-primary mb-4" role="status" style="width: 50px; height: 50px;">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <h5 id="loadingLabel" class="mb-2">Processing...</h5>
+                <p class="text-muted mb-0">Please wait while we process your request.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center p-5">
+                <div style="font-size: 4rem; color: #34AD54; margin-bottom: 1rem;">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h5 id="successLabel" class="mb-3">Success!</h5>
+                <p id="successMessage" class="mb-4">Your request was completed successfully.</p>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center p-5">
+                <div style="font-size: 4rem; color: #DC3545; margin-bottom: 1rem;">
+                    <i class="fas fa-times-circle"></i>
+                </div>
+                <h5 id="errorLabel" class="mb-3 text-danger">Error!</h5>
+                <p id="errorMessage" class="mb-4">Something went wrong. Please try again.</p>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Form Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editLabel">Edit Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <div class="mb-3">
+                        <label for="editName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="editName" placeholder="Enter name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="editEmail" placeholder="Enter email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editMessage" class="form-label">Message</label>
+                        <textarea class="form-control" id="editMessage" rows="3" placeholder="Enter message"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="editSaveBtn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Gallery/Image Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content bg-dark">
+            <div class="modal-header bg-dark border-secondary">
+                <h5 class="modal-title text-white" id="imageLabel">Gallery</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center bg-dark p-5">
+                <img id="modalImage" src="" alt="Gallery image" class="img-fluid" style="max-width: 100%; max-height: 500px;">
+                <p id="imageCaption" class="text-white mt-3 mb-0"></p>
+            </div>
+        </div>
+    </div>
+</div>

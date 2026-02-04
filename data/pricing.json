@@ -11,7 +11,7 @@
         "Website Design",
         "Responsive Layout"
       ],
-      "non_nfeatures": [
+      "non_features": [
         "Basic SEO Setup",
         "Advanced Support"
       ],
@@ -19,23 +19,6 @@
     },
     {
       "id": 2,
-      "name": "Standard Plan",
-      "price": 99.00,
-      "currency": "$",
-      "duration": "/ month",
-      "description": "Perfect for Growing Businesses",
-      "features": [
-        "Website & Web App",
-        "Responsive Layout",
-        "SEO Optimization"
-      ],
-      "non_nfeatures": [
-        "Priority Support"
-      ],
-      "delayTime": 0.6
-    },
-    {
-      "id": 3,
       "name": "Advanced Plan",
       "price": 149.00,
       "currency": "$",
@@ -46,6 +29,26 @@
         "Responsive Layout",
         "Full SEO & Analytics",
         "24/7 Dedicated Support"
+      ],
+      "non_features": [
+        "Priority Support"
+      ],
+      "delayTime": 0.6
+    },
+    {
+      "id": 3,
+      "name": "Standard Plan",
+      "price": 99.00,
+      "currency": "$",
+      "duration": "/ month",
+      "description": "Perfect for Growing Businesses",
+      "features": [
+        "Website & Web App",
+        "Responsive Layout",
+        "SEO Optimization"
+      ],
+      "non_features": [
+        "Priority Support"
       ],
       "delayTime": 0.9
     }

@@ -18,6 +18,14 @@ const APIConfig = {
     }
 };
 
+function withBasePath(path) {
+    const basePath = (typeof window !== 'undefined' && window.LOGIA_BASE_PATH) || '';
+    if (!basePath) return path;
+    const normalizedBase = basePath.replace(/\/+$/, '');
+    const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+    return `${normalizedBase}${normalizedPath}`;
+}
+
 /**
  * Email API Calls using EmailJS
  * See api/emailjs-config.js for configuration
@@ -107,10 +115,12 @@ async function subscribeNewsletter(email) {
 async function apiRequest(method = 'GET', endpoint = '', data = null) {
     try {
         const url = `${APIConfig.baseURL}${endpoint}`;
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), APIConfig.timeout);
         const options = {
             method: method,
             headers: APIConfig.headers,
-            timeout: APIConfig.timeout
+            signal: controller.signal
         };
 
         if (data && (method === 'POST' || method === 'PUT')) {
@@ -118,6 +128,7 @@ async function apiRequest(method = 'GET', endpoint = '', data = null) {
         }
 
         const response = await fetch(url, options);
+        clearTimeout(timeoutId);
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -176,7 +187,7 @@ async function apiDelete(endpoint) {
  */
 async function loadDataFile(filename) {
     try {
-        const response = await fetch(`data/${filename}`);
+        const response = await fetch(withBasePath(`/data/${filename}`));
         if (!response.ok) {
             throw new Error(`Failed to load ${filename}`);
         }

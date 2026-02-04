@@ -82,9 +82,13 @@ function showLoadingModal(message = 'Loading...') {
     const modal = document.getElementById('loadingModal');
     const labelEl = document.getElementById('loadingLabel');
     
-    labelEl.textContent = message;
+    if (labelEl) {
+        labelEl.textContent = message;
+    }
     
-    return new bootstrap.Modal(modal);
+    const instance = new bootstrap.Modal(modal);
+    instance.show();
+    return instance;
 }
 
 /**

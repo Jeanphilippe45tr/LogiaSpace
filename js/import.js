@@ -1,3 +1,17 @@
+var LOGIA_HEALTH = (typeof window !== 'undefined' && (window.LOGIA_HEALTH = window.LOGIA_HEALTH || {
+    includes: {},
+    dataSections: {},
+    flags: {}
+})) || { includes: {}, dataSections: {}, flags: {} };
+
+function withBasePath(path) {
+    const basePath = (typeof window !== 'undefined' && window.LOGIA_BASE_PATH) || '';
+    if (!basePath) return path;
+    const normalizedBase = basePath.replace(/\/+$/, '');
+    const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+    return `${normalizedBase}${normalizedPath}`;
+}
+
 const sectionConfig = {
     pricing:{
         file: "/data/pricing.json",
@@ -23,18 +37,25 @@ document.querySelectorAll("[data-section]").forEach(section => {
 
     if(!config) return;
 
-    fetch(config.file)
+    fetch(withBasePath(config.file))
     .then(res => res.json())
-    .then(data => config.render(section, data))
-    .catch(err => console.error(`Error loading ${type}`, err));
+    .then(data => {
+        config.render(section, data);
+        LOGIA_HEALTH.dataSections[type] = true;
+    })
+    .catch(err => {
+        LOGIA_HEALTH.dataSections[type] = false;
+        console.error(`Error loading ${type}`, err);
+    });
 })
 
-function renderTestimonial(container, services) {
+function renderTestimonial(container, data) {
+    const testimonials = Array.isArray(data) ? data : (data && data.testimonials) || [];
     container.innerHTML = `
             <div class="testimonial-item bg-light my-4">
-            ${services.map(t => `
+            ${testimonials.map(t => `
                 <div class="d-flex align-items-center border-bottom pt-5 pb-4 px-5">
-                    <img class="img-fluid rounded" src="${t.image}" style="width: 60px; height: 60px;">
+                    <img class="img-fluid rounded" src="${t.image}" alt="${t.name}" style="width: 60px; height: 60px;">
                     <div class="ps-4">
                         <h4 class="text-primary mb-1">${t.name}</h4>
                         <small class="text-uppercase">${t.role}</small>
@@ -49,7 +70,8 @@ function renderTestimonial(container, services) {
     `;
 }
 
-function renderPricing(container, plans) {
+function renderPricing(container, data) {
+    const plans = Array.isArray(data) ? data : (data && data.pricing) || [];
     container.innerHTML = `
     ${plans.map(p => `
             <div class="col-lg-4 wow slideInUp" data-wow-delay="${p.delayTime}s">
@@ -66,7 +88,7 @@ function renderPricing(container, plans) {
                             </h1>
                             <div class="d-flex justify-content-between mb-3"><span>${p.features.join("<br>")}</span><i
                                     class="fa fa-check text-primary pt-1"></i></div>
-                            <div class="d-flex justify-content-between mb-3"><span>${p.non_features.join("<br>")}</span><i
+                            <div class="d-flex justify-content-between mb-3"><span>${(p.non_features || p.non_nfeatures || []).join("<br>")}</span><i
                                     class="fa fa-times text-danger pt-1"></i></div>
                             <a href="/pages/quote.html" class="btn btn-primary py-2 px-4 mt-4">Order Now</a>
                     </div>
@@ -76,14 +98,15 @@ function renderPricing(container, plans) {
     `;
 }
 
-function renderServices(container, services) {
+function renderServices(container, data) {
+    const services = Array.isArray(data) ? data : (data && data.services) || [];
     container.innerHTML = `
             ${services.map(s => `
             <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="${s.delayTime}s">
                     <div
                         class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
                         <div class="service-icon">
-                            <i class="fa fa-shield-alt text-white"></i>
+                            <i class="fa ${s.icon || 'fa-shield-alt'} text-white"></i>
                         </div>
                         <h4 class="mb-3">${s.name}</h4>
                         <p class="m-0">${s.description}</p>
@@ -97,7 +120,8 @@ function renderServices(container, services) {
     `;
 }
 
-function renderTeam(container, members) {
+function renderTeam(container, data) {
+    const members = Array.isArray(data) ? data : (data && data.team) || [];
     container.innerHTML = `
             <div class="row g-5">
             ${members.map(m => `

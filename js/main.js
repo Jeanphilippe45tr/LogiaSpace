@@ -100,7 +100,6 @@
 
     // Vendor carousel
     $('.vendor-carousel').owlCarousel({
-        loop: true,
         margin: 45,
         dots: false,
         loop: true,
@@ -121,6 +120,26 @@
             }
         }
     });
+
+    // Health check summary
+    $(window).on('load', function () {
+        setTimeout(function () {
+            if (!window.LOGIA_HEALTH) return;
+            const includes = window.LOGIA_HEALTH.includes || {};
+            const dataSections = window.LOGIA_HEALTH.dataSections || {};
+            const includesOk = Object.values(includes).filter(v => v === false).length === 0;
+            const sectionsOk = Object.values(dataSections).filter(v => v === false).length === 0;
+            console.info('[LogiaSpace] Health check', {
+                includes,
+                dataSections
+            });
+            if (!includesOk) {
+                console.warn('[LogiaSpace] Some includes failed to load.');
+            }
+            if (!sectionsOk) {
+                console.warn('[LogiaSpace] Some data sections failed to load.');
+            }
+        }, 0);
+    });
     
 })(jQuery);
-

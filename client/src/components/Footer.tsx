@@ -1,13 +1,8 @@
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { sendNewsletter } from '../utils/emailjs';
 
-const socialLinks = [
-  { icon: 'fab fa-twitter', href: '' },
-  { icon: 'fab fa-facebook-f', href: 'https://www.facebook.com/share/1Gqwz6LZHa/?mibextid=wwXIfr' },
-  { icon: 'fab fa-linkedin-in', href: 'https://www.linkedin.com/in/logia-space-7407893a7?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app' },
-  { icon: 'fab fa-instagram', href: 'https://www.instagram.com/logiaspace?igsh=MjdlbDdpajIxaHdj&utm_source=qr' },
-];
-
-const footerLinks = [
+const quickLinks = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About Us' },
   { to: '/services', label: 'Our Services' },
@@ -16,105 +11,132 @@ const footerLinks = [
   { to: '/contact', label: 'Contact Us' },
 ];
 
+const socialLinks = [
+  { icon: 'fab fa-twitter', href: '#', label: 'Twitter' },
+  { icon: 'fab fa-facebook-f', href: '#', label: 'Facebook' },
+  { icon: 'fab fa-linkedin-in', href: '#', label: 'LinkedIn' },
+  { icon: 'fab fa-instagram', href: '#', label: 'Instagram' },
+];
+
+function LinksColumn({ title, className }: { title: string; className: string }) {
+  return (
+    <div className={className}>
+      <div className="section-title section-title-sm position-relative pb-3 mb-4">
+        <h3 className="text-light mb-0">{title}</h3>
+      </div>
+      <div className="link-animated d-flex flex-column justify-content-start">
+        {quickLinks.map((link, i) => (
+          <Link key={i} to={link.to} className="text-light mb-2">
+            <i className="bi bi-arrow-right text-primary me-2"></i>
+            {link.label}
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Footer() {
+  const [email, setEmail] = useState('');
+  const [sending, setSending] = useState(false);
+
+  const handleNewsletter = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) {
+      alert('Please enter your email address.');
+      return;
+    }
+    setSending(true);
+    try {
+      await sendNewsletter(email);
+      setEmail('');
+    } catch {
+      /* alert already shown in sendNewsletter */
+    } finally {
+      setSending(false);
+    }
+  };
+
   return (
     <>
-      <div className="container-fluid bg-dark text-light py-5">
+      {/* Footer Start */}
+      <div className="container-fluid bg-dark text-light mt-5 wow fadeInUp" data-wow-delay="0.1s">
         <div className="container">
-          <div className="row g-5">
-            {/* Logo Column */}
-            <div className="col-lg-3 col-md-6">
-              <div className="mb-4">
-                <NavLink to="/" className="d-flex align-items-center mb-3" end>
-                  <img src="/img/logo.png" alt="logiaspace" style={{ height: 40, marginRight: 10 }} />
-                  <span className="fw-bold text-white" style={{ fontSize: '1.5rem', letterSpacing: '-1px' }}>LOGIA<span className="text-primary">Space</span></span>
-                </NavLink>
-                <p className="text-light small" style={{ opacity: 0.8, lineHeight: 1.6 }}>
-                  Logia Space is a digital solutions company dedicated to helping startups and businesses grow through modern web development,
-                  innovative design, and smart digital strategies. We build reliable, scalable, and results-driven solutions tailored to your goals.
+          <div className="row gx-5">
+            <div className="col-lg-4 col-md-6 footer-about">
+              <div className="d-flex flex-column align-items-center justify-content-center text-center h-100 bg-primary p-4">
+                <Link to="/" className="navbar-brand">
+                  <img src="/img/logo.png" alt="logiaspace" style={{ height: 75 }} />
+                </Link>
+                <p className="mt-3 mb-4">
+                  LogiaSpace is a digital solutions company specializing in web design, web development,
+                  and digital marketing. We help businesses build a strong online presence through
+                  innovative, secure, and performance-driven digital products.
                 </p>
+                <form onSubmit={handleNewsletter} id="newsletterForm">
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      name="from_email"
+                      className="form-control border-white p-3"
+                      placeholder="Your Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <button className="btn btn-dark" type="submit" disabled={sending}>
+                      {sending ? 'Sending...' : 'Sign Up'}
+                    </button>
+                  </div>
+                </form>
               </div>
-              <div className="d-flex gap-2">
-                {socialLinks.map((s, i) => (
-                  <a key={i} className="text-primary text-decoration-none" href={s.href} aria-label={s.icon}>
-                    <i className={s.icon} style={{ fontSize: '1.2rem', background: 'rgba(255,255,255,0.1)', padding: 8, borderRadius: 6 }}></i>
-                  </a>
-                ))}
+            </div>
+            <div className="col-lg-8 col-md-6">
+              <div className="row gx-5">
+                <div className="col-lg-4 col-md-12 pt-5 mb-5">
+                  <div className="section-title section-title-sm position-relative pb-3 mb-4">
+                    <h3 className="text-light mb-0">Get In Touch</h3>
+                  </div>
+                  <div className="d-flex mb-2">
+                    <i className="bi bi-geo-alt text-primary me-2"></i>
+                    <p className="mb-0">Yaounde, Cameroun</p>
+                  </div>
+                  <div className="d-flex mb-2">
+                    <i className="bi bi-envelope-open text-primary me-2"></i>
+                    <p className="mb-0">logiaspace@gmail.com</p>
+                  </div>
+                  <div className="d-flex mb-2">
+                    <i className="bi bi-telephone text-primary me-2"></i>
+                    <p className="mb-0">+237 676 507 052</p>
+                  </div>
+                  <div className="d-flex mt-4">
+                    {socialLinks.map((s, i) => (
+                      <a key={i} className="btn btn-primary btn-square me-2" href={s.href} aria-label={s.label}>
+                        <i className={`${s.icon} fw-normal`}></i>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+                <LinksColumn title="Quick Links" className="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-5" />
+                <LinksColumn title="Popular Links" className="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-5" />
               </div>
             </div>
-
-            {/* Get In Touch */}
-            <div className="col-lg-3 col-md-6">
-              <h6 className="text-white fw-bold mb-3 text-uppercase" style={{ fontSize: '0.85rem', letterSpacing: '1px' }}>
-                Get In Touch
-              </h6>
-              <ul className="list-unstyled mb-0">
-                <li className="mb-2 d-flex align-items-start">
-                  <i className="bi bi-geo-alt text-primary me-2 mt-1"></i>
-                  <span className="text-light small">Yaounde, Cameroun</span>
-                </li>
-                <li className="mb-2 d-flex align-items-start">
-                  <i className="bi bi-envelope-open text-primary me-2 mt-1"></i>
-                  <a href="mailto:logiaspace@gmail.com" className="text-light text-decoration-none small">logiaspace@gmail.com</a>
-                </li>
-                <li className="mb-2 d-flex align-items-start">
-                  <i className="bi bi-telephone text-primary me-2 mt-1"></i>
-                  <a href="tel:+237676507052" className="text-light text-decoration-none small">+237 676 507 052</a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Quick Links */}
-            <div className="col-lg-3 col-md-6">
-              <h6 className="text-white fw-bold mb-3 text-uppercase" style={{ fontSize: '0.85rem', letterSpacing: '1px' }}>
-                Quick Links
-              </h6>
-              <ul className="list-unstyled mb-0">
-                {footerLinks.map((link, i) => (
-                  <li key={i} className="mb-2">
-                    <NavLink
-                      to={link.to}
-                      className={({ isActive }) => `text-light text-decoration-none small${isActive ? ' text-primary' : ''}`}
-                      onClick={() => window.scrollTo(0, 0)}
-                    >
-                      → {link.label}
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Popular Links */}
-            <div className="col-lg-3 col-md-6">
-              <h6 className="text-white fw-bold mb-3 text-uppercase" style={{ fontSize: '0.85rem', letterSpacing: '1px' }}>
-                Popular Links
-              </h6>
-              <ul className="list-unstyled mb-0">
-                {footerLinks.map((link, i) => (
-                  <li key={i + 10} className="mb-2">
-                    <NavLink
-                      to={link.to}
-                      className={({ isActive }) => `text-light text-decoration-none small${isActive ? ' text-primary' : ''}`}
-                      onClick={() => window.scrollTo(0, 0)}
-                    >
-                      → {link.label}
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <hr className="my-5" style={{ borderColor: 'rgba(255,255,255,0.1)' }} />
-
-          {/* Copyright */}
-          <div className="text-center">
-            <p className="mb-0 text-light small" style={{ opacity: 0.7 }}>
-              &copy; {new Date().getFullYear()} LogiaSpace. All Rights Reserved.
-            </p>
           </div>
         </div>
       </div>
+      <div className="container-fluid text-white" style={{ background: '#061429' }}>
+        <div className="container text-center">
+          <div className="row justify-content-end">
+            <div className="col-lg-8 col-md-6">
+              <div className="d-flex align-items-center justify-content-center" style={{ height: 75 }}>
+                <p className="mb-0">
+                  &copy; <a className="text-white border-bottom" href="#">LogiaSPace</a>. All Rights Reserved.{' '}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Footer End */}
     </>
   );
 }

@@ -1,10 +1,36 @@
-interface ContactFormProps {
-  onSubmit: (e: React.FormEvent) => void;
-}
+import { useState } from 'react';
+import { sendForm, ALERT_MESSAGES } from '../utils/emailjs';
 
-export default function ContactForm({ onSubmit }: ContactFormProps) {
+export default function ContactForm() {
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const originalText = btn?.textContent || 'Send Message';
+
+    setSending(true);
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+    }
+
+    try {
+      await sendForm(form, ALERT_MESSAGES.SUCCESS);
+    } catch {
+      /* alert already shown */
+    } finally {
+      setSending(false);
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    }
+  };
+
   return (
-    <form id="contactForm" onSubmit={onSubmit}>
+    <form id="contactForm" onSubmit={handleSubmit}>
       <div className="row g-3">
         <div className="col-md-6">
           <div className="form-floating">
@@ -31,7 +57,7 @@ export default function ContactForm({ onSubmit }: ContactFormProps) {
           </div>
         </div>
         <div className="col-12">
-          <button className="btn btn-primary py-3 px-5" type="submit">
+          <button className="btn btn-primary py-3 px-5" type="submit" disabled={sending}>
             Send Message
           </button>
         </div>

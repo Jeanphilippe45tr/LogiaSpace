@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Fragment } from 'react';
 import type { PricingPlan } from '../types';
 
@@ -15,30 +16,35 @@ export default function PricingCard({ plan }: PricingCardProps) {
         </div>
         <div className="p-5 pt-0">
           <h1 className="display-5 mb-3">
-            <small className="align-top" style={{ fontSize: 22, lineHeight: '45px' }}>{plan.currency}</small>{plan.price}
-            <small className="align-bottom" style={{ fontSize: 16, lineHeight: '40px' }}>{plan.duration}</small>
+            <small className="align-top" style={{ fontSize: '22px', lineHeight: '45px' }}>{plan.currency}</small>
+            {plan.price}
+            <small className="align-bottom" style={{ fontSize: '16px', lineHeight: '40px' }}>{plan.duration}</small>
           </h1>
           <div className="d-flex justify-content-between mb-3">
-            {plan.features.map((f: string, i: number) => (
-              <Fragment key={i}>
-                {f}
-                <br />
-              </Fragment>
-            ))}
+            <span>
+              {plan.features.map((f: string, i: number) => (
+                <Fragment key={i}>
+                  {f}
+                  <br />
+                </Fragment>
+              ))}
+            </span>
             <i className="fa fa-check text-primary pt-1"></i>
           </div>
           <div className="d-flex justify-content-between mb-3">
-            {(plan.non_features || []).map((f: string, i: number) => (
-              <Fragment key={i}>
-                {f}
-                <br />
-              </Fragment>
-            ))}
+            <span>
+              {(plan.non_features || []).map((f: string, i: number) => (
+                <Fragment key={i}>
+                  {f}
+                  <br />
+                </Fragment>
+              ))}
+            </span>
             <i className="fa fa-times text-danger pt-1"></i>
           </div>
-          <a className="btn btn-primary py-2 px-4 mt-4" href="/quote">
+          <Link to="/quote" className="btn btn-primary py-2 px-4 mt-4">
             Order Now
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -6,30 +6,28 @@ interface TeamCardProps {
 
 export default function TeamCard({ member }: TeamCardProps) {
   return (
-    <div className="col-lg-4 col-md-6 wow slideInUp" data-wow-delay={`${member.delayTime}s`}>
-      <div className="team-item bg-white rounded-lg overflow-hidden border border-light">
+    <div className="col-lg-4 wow slideInUp" data-wow-delay={`${member.delayTime}s`}>
+      <div className="team-item bg-light rounded overflow-hidden">
         <div className="team-img position-relative overflow-hidden">
           <img className="img-fluid w-100" src={member.image} alt={member.name} />
-          <div className="team-social position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-            <div className="d-flex gap-2">
-              <a className="btn btn-sm btn-primary rounded-circle" href={member.social.twitter} aria-label="Twitter">
-                <i className="fab fa-twitter fw-normal"></i>
-              </a>
-              <a className="btn btn-sm btn-primary rounded-circle" href={member.social.facebook} aria-label="Facebook">
-                <i className="fab fa-facebook-f fw-normal"></i>
-              </a>
-              <a className="btn btn-sm btn-primary rounded-circle" href={member.social.instagram} aria-label="Instagram">
-                <i className="fab fa-instagram fw-normal"></i>
-              </a>
-              <a className="btn btn-sm btn-primary rounded-circle" href={member.social.linkedin} aria-label="LinkedIn">
-                <i className="fab fa-linkedin-in fw-normal"></i>
-              </a>
-            </div>
+          <div className="team-social">
+            <a className="btn btn-lg btn-primary btn-lg-square rounded" href={member.social.twitter}>
+              <i className="fab fa-twitter fw-normal"></i>
+            </a>
+            <a className="btn btn-lg btn-primary btn-lg-square rounded" href={member.social.facebook}>
+              <i className="fab fa-facebook-f fw-normal"></i>
+            </a>
+            <a className="btn btn-lg btn-primary btn-lg-square rounded" href={member.social.instagram}>
+              <i className="fab fa-instagram fw-normal"></i>
+            </a>
+            <a className="btn btn-lg btn-primary btn-lg-square rounded" href={member.social.linkedin}>
+              <i className="fab fa-linkedin-in fw-normal"></i>
+            </a>
           </div>
         </div>
-        <div className="p-3 text-center">
-          <h4 className="text-primary mb-1 fw-bold">{member.name}</h4>
-          <p className="text-muted small text-uppercase mb-0 fw-medium">{member.position}</p>
+        <div className="text-center py-4">
+          <h4 className="text-primary">{member.name}</h4>
+          <p className="text-uppercase m-0">{member.position}</p>
         </div>
       </div>
     </div>

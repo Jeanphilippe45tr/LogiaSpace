@@ -1,33 +1,44 @@
-import SectionTitle from '../components/SectionTitle';
+import { useEffect } from 'react';
+import PageHeader from '../components/PageHeader';
 import { testimonials } from '../data/testimonials.json';
-import TestimonialCard from '../components/TestimonialCard';
+import { initOwlCarousels, destroyOwl } from '../utils/initJqLibs';
 
 export default function Testimonial() {
-  return (
-    <>
-      <main>
-        <div className="container-fluid bg-primary py-5 bg-header" style={{ marginBottom: 90 }}>
-          <div className="row py-5">
-            <div className="col-12 pt-lg-5 mt-lg-5 text-center">
-              <h1 className="display-4 text-white animate__animated animate__zoomIn">Testimonials</h1>
-              <a href="/" className="h5 text-white">Home</a>
-              <i className="far fa-circle text-white px-2"></i>
-              <span className="h5 text-white">Testimonials</span>
-            </div>
-          </div>
-        </div>
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => {
+      initOwlCarousels();
+    });
+    return () => {
+      cancelAnimationFrame(raf);
+      destroyOwl('.testimonial-carousel');
+    };
+  }, []);
 
-        <div className="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
-          <div className="container py-5">
-            <SectionTitle title="Testimonials" subtitle="What Our Clients Say About Working With Logia Space" center />
-            <div className="row g-4">
-              {testimonials.map((t) => (
-                <TestimonialCard key={t.id} testimonial={t} />
-              ))}
-            </div>
+  return (
+    <main>
+      <PageHeader title="Testimonials" breadcrumb="Testimonials" />
+      <div className="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div className="container py-5">
+          <div className="section-title text-center position-relative pb-3 mb-4 mx-auto" style={{ maxWidth: 600 }}>
+            <h5 className="fw-bold text-primary text-uppercase">Testimonials</h5>
+            <h1 className="mb-0">What Our Clients Say About Working With Logia Space</h1>
+          </div>
+          <div className="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.6s">
+            {testimonials.map((t) => (
+              <div key={t.id} className="testimonial-item bg-light my-4">
+                <div className="d-flex align-items-center border-bottom pt-5 pb-4 px-5">
+                  <img className="img-fluid rounded" src={t.image} alt={t.name} style={{ width: 60, height: 60 }} />
+                  <div className="ps-4">
+                    <h4 className="text-primary mb-1">{t.name}</h4>
+                    <small className="text-uppercase">{t.role}</small>
+                  </div>
+                </div>
+                <div className="pt-4 pb-5 px-5">{t.comment}</div>
+              </div>
+            ))}
           </div>
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 }

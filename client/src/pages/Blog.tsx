@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import SectionTitle from '../components/SectionTitle';
+import PageHeader from '../components/PageHeader';
 import BlogCard from '../components/BlogCard';
 
 const blogs = [
@@ -34,45 +34,37 @@ const blogs = [
 
 export default function Blog() {
   const [active, setActive] = useState('all');
-
   const categories = ['all', 'Web Development', 'Digital Strategy', 'Technology'];
 
   return (
-    <>
-      <main>
-        <div className="container-fluid bg-primary py-5 bg-header" style={{ marginBottom: 90 }}>
-          <div className="row py-5">
-            <div className="col-12 pt-lg-5 mt-lg-5 text-center">
-              <h1 className="display-4 text-white animate__animated animate__zoomIn">Our Blog</h1>
-              <a href="/" className="h5 text-white">Home</a>
-              <i className="far fa-circle text-white px-2"></i>
-              <span className="h5 text-white">Blog</span>
-            </div>
+    <main>
+      <PageHeader title="Our Blog" breadcrumb="Blog" />
+      <div className="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div className="container py-5">
+          <div className="section-title text-center position-relative pb-3 mb-5 mx-auto" style={{ maxWidth: 600 }}>
+            <h5 className="fw-bold text-primary text-uppercase">Our Blog</h5>
+            <h1 className="mb-0">Insights, Tips & Updates from the Logia Space Team</h1>
+          </div>
+          <div className="text-center mb-5 wow fadeInUp" data-wow-delay="0.2s">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                className={`btn btn-outline-primary me-2 mb-2 ${active === cat ? 'bg-primary text-white border-primary' : ''}`}
+                onClick={() => setActive(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+          <div className="row g-5">
+            {blogs
+              .filter((b) => active === 'all' || b.category === active)
+              .map((blog, i) => (
+                <BlogCard key={blog.id} {...blog} delay={`${0.3 * (i + 1)}s`} />
+              ))}
           </div>
         </div>
-
-        <div className="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
-          <div className="container py-5">
-            <SectionTitle title="Our Blog" subtitle="Insights, Tips & Updates from the Logia Space Team" center />
-            <div className="text-center mb-5 wow fadeInUp" data-wow-delay="0.2s">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  className={`btn btn-outline-primary me-2 mb-2 ${active === cat ? 'bg-primary text-white border-primary' : ''}`}
-                  onClick={() => setActive(cat)}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-            <div className="row g-5">
-              {blogs.filter((b) => active === 'all' || b.category === active).map((blog) => (
-                <BlogCard key={blog.id} {...blog} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 }

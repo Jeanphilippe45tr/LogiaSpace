@@ -1,33 +1,24 @@
-import SectionTitle from '../components/SectionTitle';
-import { pricing } from '../data/pricing.json';
+import PageHeader from '../components/PageHeader';
 import PricingCard from '../components/PricingCard';
+import { pricing } from '../data/pricing.json';
 
 export default function Pricing() {
   return (
-    <>
-      <main>
-        <div className="container-fluid bg-primary py-5 bg-header" style={{ marginBottom: 90 }}>
-          <div className="row py-5">
-            <div className="col-12 pt-lg-5 mt-lg-5 text-center">
-              <h1 className="display-4 text-white animate__animated animate__zoomIn">Pricing Plans</h1>
-              <a href="/" className="h5 text-white">Home</a>
-              <i className="far fa-circle text-white px-2"></i>
-              <span className="h5 text-white">Pricing</span>
-            </div>
+    <main>
+      <PageHeader title="Pricing Plans" breadcrumb="Pricing" />
+      <div className="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div className="container py-5">
+          <div className="section-title text-center position-relative pb-3 mb-5 mx-auto" style={{ maxWidth: 600 }}>
+            <h5 className="fw-bold text-primary text-uppercase">Pricing Plans</h5>
+            <h1 className="mb-0">Flexible Plans to Fit Every Business Need</h1>
+          </div>
+          <div className="row g-0">
+            {pricing.map((plan) => (
+              <PricingCard key={plan.id} plan={plan} />
+            ))}
           </div>
         </div>
-
-        <div className="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
-          <div className="container py-5">
-            <SectionTitle title="Pricing Plans" subtitle="Flexible Plans to Fit Every Business Need" center />
-            <div className="row g-4">
-              {pricing.map((plan) => (
-                <PricingCard key={plan.id} plan={plan} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 }

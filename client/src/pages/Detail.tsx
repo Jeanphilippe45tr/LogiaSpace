@@ -1,4 +1,5 @@
-import SectionTitle from '../components/SectionTitle';
+import { Link } from 'react-router-dom';
+import PageHeader from '../components/PageHeader';
 
 const detail = {
   title: 'How to Build a Professional Business Website',
@@ -23,71 +24,54 @@ const detail = {
 
 export default function Detail() {
   return (
-    <>
-      <main>
-        <div className="container-fluid bg-primary py-5 bg-header" style={{ marginBottom: 90 }}>
-          <div className="row py-5">
-            <div className="col-12 pt-lg-5 mt-lg-5 text-center">
-              <h1 className="display-4 text-white animate__animated animate__zoomIn">Blog Detail</h1>
-              <a href="/" className="h5 text-white">Home</a>
-              <i className="far fa-circle text-white px-2"></i>
-              <a href="/blog" className="h5 text-white">Blog</a>
-              <i className="far fa-circle text-white px-2"></i>
-              <span className="h5 text-white">Blog Detail</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
-          <div className="container py-5">
-            <div className="row g-5">
-              <div className="col-lg-8">
-                <div className="blog-item bg-light rounded overflow-hidden wow fadeInUp" data-wow-delay="0.2s">
-                  <div className="blog-img position-relative overflow-hidden">
-                    <img className="img-fluid" src={detail.image} alt={detail.title} />
-                    <a className="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4" href="/blog">
-                      {detail.category}
-                    </a>
+    <main>
+      <PageHeader title="Blog Detail" parent="Blog" parentTo="/blog" breadcrumb="Blog Detail" />
+      <div className="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div className="container py-5">
+          <div className="row g-5">
+            <div className="col-lg-8">
+              <div className="blog-item bg-light rounded overflow-hidden wow fadeInUp" data-wow-delay="0.2s">
+                <div className="blog-img position-relative overflow-hidden">
+                  <img className="img-fluid" src={detail.image} alt={detail.title} />
+                  <Link className="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4" to="/blog">
+                    {detail.category}
+                  </Link>
+                </div>
+                <div className="p-4">
+                  <div className="d-flex mb-3">
+                    <small className="me-3">
+                      <i className="far fa-user text-primary me-2"></i>{detail.author}
+                    </small>
+                    <small>
+                      <i className="far fa-calendar-alt text-primary me-2"></i>{detail.date}
+                    </small>
                   </div>
-                  <div className="p-4">
-                    <div className="d-flex mb-3">
-                      <small className="me-3">
-                        <i className="far fa-user text-primary me-2"></i>{detail.author}
-                      </small>
-                      <small>
-                        <i className="far fa-calendar-alt text-primary me-2"></i>{detail.date}
-                      </small>
-                    </div>
-                    <h1 className="mb-3">{detail.title}</h1>
-                    <div
-                      className="blog-content"
-                      dangerouslySetInnerHTML={{ __html: detail.content }}
-                    />
-                    <div className="mt-4">
-                      <a href="/blog" className="btn btn-primary me-2">
-                        <i className="bi bi-arrow-left me-2"></i>Back to Blog
-                      </a>
-                    </div>
+                  <h1 className="mb-3">{detail.title}</h1>
+                  <div className="blog-content" dangerouslySetInnerHTML={{ __html: detail.content }} />
+                  <div className="mt-4">
+                    <Link to="/blog" className="btn btn-primary me-2">
+                      <i className="bi bi-arrow-left me-2"></i>Back to Blog
+                    </Link>
                   </div>
                 </div>
               </div>
-              <div className="col-lg-4">
-                <div className="bg-light rounded p-4 wow fadeInUp" data-wow-delay="0.4s">
-                  <SectionTitle title="Related Posts" subtitle="" />
-                  <div className="row g-3">
-                    <div className="col-6">
-                      <div className="bg-white rounded p-3 h-100 shadow-sm">
-                        <img src="/img/blog-2.jpg" alt="" className="img-fluid rounded mb-3" />
-                        <h5 className="mb-2">Why Every Startup Needs a Digital Presence</h5>
-                        <small className="text-muted">05 Mar, 2026</small>
-                      </div>
+            </div>
+            <div className="col-lg-4">
+              <div className="bg-light rounded p-4 wow fadeInUp" data-wow-delay="0.4s">
+                <h4 className="text-primary text-uppercase mb-4">Related Posts</h4>
+                <div className="row g-3">
+                  <div className="col-6">
+                    <div className="bg-white rounded p-3 h-100 shadow-sm">
+                      <img src="/img/blog-2.jpg" alt="" className="img-fluid rounded mb-3" />
+                      <h5 className="mb-2">Why Every Startup Needs a Digital Presence</h5>
+                      <small className="text-muted">05 Mar, 2026</small>
                     </div>
-                    <div className="col-6">
-                      <div className="bg-white rounded p-3 h-100 shadow-sm">
-                        <img src="/img/blog-3.jpg" alt="" className="img-fluid rounded mb-3" />
-                        <h5 className="mb-2">Choosing the Right Technology for Your Project</h5>
-                        <small className="text-muted">26 Feb, 2026</small>
-                      </div>
+                  </div>
+                  <div className="col-6">
+                    <div className="bg-white rounded p-3 h-100 shadow-sm">
+                      <img src="/img/blog-3.jpg" alt="" className="img-fluid rounded mb-3" />
+                      <h5 className="mb-2">Choosing the Right Technology for Your Project</h5>
+                      <small className="text-muted">26 Feb, 2026</small>
                     </div>
                   </div>
                 </div>
@@ -95,7 +79,7 @@ export default function Detail() {
             </div>
           </div>
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 }
